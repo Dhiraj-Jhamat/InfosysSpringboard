@@ -111,7 +111,7 @@ output_dir = "cleaned_by_type"
 os.makedirs(output_dir, exist_ok=True)
 
 # Save overall cleaned dataset
-main_output = "cleaned_email_dataset_all_types.csv"
+main_output = r"D:\Infosys Springboard\Cleaned Dataset\cleaned_email_dataset_all_types.csv"
 df_processed.to_csv(main_output, index=False)
 print(f"\n✓ Main cleaned dataset saved as '{main_output}'")
 
