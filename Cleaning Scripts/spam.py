@@ -58,7 +58,7 @@ def clean_email(text):
 
 # Load the dataset
 print("Loading dataset...")
-df = pd.read_csv(r"D:\Infosys Springboard\Raw Dataset\lingSpam.csv")  # Replace with your actual CSV filename
+df = pd.read_csv(r"D:\Infosys Springboard\Raw Dataset\spam_ham_dataset.csv")  # Replace with your actual CSV filename
 
 # Display basic information
 print(f"\nDataset shape: {df.shape}")
@@ -71,17 +71,17 @@ print(df.isnull().sum())
 
 # Clean the Body column
 print("\nCleaning email bodies...")
-df['cleaned_text'] = df['Body'].apply(clean_email)
+df['cleaned_text'] = df['text'].apply(clean_email)
 
 # Convert label to readable format (1=spam, 0=ham)
-df['label_text'] = df['Label'].map({1: 'spam', 0: 'ham'})
+# df['label_text'] = df['Label'].map({1: 'spam', 0: 'ham'})
 
-# Display some examples
-print("\n--- Sample Cleaned Emails ---")
-for i in range(min(3, len(df))):
-    print(f"\nOriginal: {df['Body'].iloc[i][:100]}...")
-    print(f"Cleaned: {df['cleaned_text'].iloc[i]}")
-    print(f"Label: {df['label_text'].iloc[i]}")
+# # Display some examples
+# print("\n--- Sample Cleaned Emails ---")
+# for i in range(min(3, len(df))):
+#     print(f"\nOriginal: {df['text'].iloc[i][:100]}...")
+#     print(f"Cleaned: {df['cleaned_text'].iloc[i]}")
+#     print(f"Label: {df['label_text'].iloc[i]}")
 
 # Remove rows with empty cleaned text (if any)
 initial_count = len(df)
@@ -92,16 +92,16 @@ if removed_count > 0:
 
 # Display label distribution
 print("\n--- Label Distribution ---")
-print(df['Label'].value_counts())
+print(df['label'].value_counts())
 print("\nPercentage:")
-print(df['Label'].value_counts(normalize=True) * 100)
+print(df['label'].value_counts(normalize=True) * 100)
 
 # Create final structured dataset
 final_df = pd.DataFrame({
-    'orginal_text': df['Body'],
+    'orginal_text': df['text'],
     'cleaned_text': df['cleaned_text'],
-    'label': df['Label'],
-    'label_text': df['label_text']
+    'label': df['label'],
+    # 'label_text': df['label_text']
 })
 
 # Save the cleaned dataset
