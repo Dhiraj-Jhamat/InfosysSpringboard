@@ -1,5 +1,5 @@
 import pandas as pd
-from sklearn.naive_bayes import GaussianNB
+from sklearn.naive_bayes import MultinomialNB
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -22,13 +22,13 @@ X_train_tfidf = vectorizer.fit_transform(x_train)
 X_test_tfidf = vectorizer.transform(x_test)
 
 # Create Naive Bayes model
-model = GaussianNB()
+model = MultinomialNB()
 
 # Train model
-model.fit(x_train, y_train)
+model.fit(X_train_tfidf, y_train)
 
 # Prediction
-y_pred = model.predict(x_test)
+y_pred = model.predict(X_test_tfidf)
 
 # Accuracy
 print("Accuracy:", accuracy_score(y_test, y_pred))
