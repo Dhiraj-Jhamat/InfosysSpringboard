@@ -3,6 +3,7 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from sklearn.feature_extraction.text import TfidfVectorizer
+import pickle
 
 
 dataset = pd.read_csv(r'D:\Infosys Springboard\Cleaned Dataset\cleaned_email_dataset_all_types.csv')
@@ -29,6 +30,10 @@ model.fit(X_train_tfidf, y_train)
 
 # Prediction
 y_pred = model.predict(X_test_tfidf)
+
+with open(r"D:\Infosys Springboard\Classification Models\naive_bayes_model.pkl", "wb") as file:
+    pickle.dump(model, file)
+
 
 # Accuracy
 print("Accuracy:", accuracy_score(y_test, y_pred))

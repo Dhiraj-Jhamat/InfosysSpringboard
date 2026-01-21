@@ -2,6 +2,7 @@ from sklearn.linear_model import LogisticRegression
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
+import pickle
 
 
 dataset = pd.read_csv(r'D:\Infosys Springboard\Cleaned Dataset\cleaned_email_dataset_all_types.csv')
@@ -25,7 +26,14 @@ model.fit(X_train_tfidf, y_train)
 
 y_pred = model.predict(X_test_tfidf)
 
+with open(r"D:\Infosys Springboard\Classification Models\logisticmodel.pkl", "wb") as file:
+    pickle.dump(model, file)
+
+
 from sklearn. metrics import accuracy_score, classification_report
 accuracy=accuracy_score(y_test, y_pred)
 print(f"Accuracy: {accuracy}")
 print(classification_report(y_test, y_pred))
+
+with open(r'D:\Infosys Springboard\Classification Models\tfidf_vectorizer.pkl', 'wb') as f:
+    pickle.dump(vectorizer, f)

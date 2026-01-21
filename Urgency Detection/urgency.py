@@ -10,6 +10,9 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, f1_score, classification_report
+import pickle
+
+from sklearn.pipeline import Pipeline
 
 
 # ===============================
@@ -125,6 +128,9 @@ def hybrid_urgency_detection(text):
 
     return reverse_urgency_map[ml_pred]
 
+with open(r"D:\Infosys Springboard\Urgency Detection\urgency_model.pkl", "wb") as file:
+    pickle.dump(urgency_model, file)
+
 
 # ===============================
 # 9. MODEL EVALUATION
@@ -145,6 +151,7 @@ print(classification_report(
 ))
 
 
+
 # ===============================
 # 10. SAMPLE TESTING
 # ===============================
@@ -152,3 +159,15 @@ print("\nHybrid Prediction Examples:")
 print("1.", hybrid_urgency_detection("System is down since morning"))
 print("2.", hybrid_urgency_detection("Please help with refund status"))
 print("3.", hybrid_urgency_detection("Thanks for the update"))
+
+urgency_pipeline = Pipeline([
+    ("tfidf", TfidfVectorizer(
+        max_features=3000,
+        stop_words="english"
+    )),
+    ("clf", LogisticRegression(max_iter=1000))
+])
+urgency_pipeline.fit(X_cleaned, y_urgency)
+
+with open(r"D:\Infosys Springboard\Urgency Detection\urgency_pipeline.pkl", "wb") as file:
+    pickle.dump(urgency_pipeline, file)
