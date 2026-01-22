@@ -8,6 +8,9 @@
 
 An intelligent email classification system designed for enterprise environments that leverages machine learning and natural language processing to automatically categorize, prioritize, and detect urgency in email communications.
 
+##Note:
+The size of BERT Model is more than 100 MB, Uploading and Deploying BERT Model is not Possible on the Free Platforms like Render and Streamlit CloudSpace.
+
 ## 📋 Table of Contents
 
 - [Overview](#overview)
