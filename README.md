@@ -36,7 +36,6 @@ In today's fast-paced business environment, email overload is a significant prod
 - **Reduce manual sorting** efforts and human error
 - **Enhance productivity** by focusing on high-priority messages first
 
-The system uses state-of-the-art machine learning models, including BERT-based transformers, to understand email context and content with high accuracy.
 
 ## ✨ Features
 
@@ -234,38 +233,17 @@ print(f"Urgency Level: {urgency_level}")  # Output: High/Medium/Low
 
 ## 🤖 Models & Algorithms
 
-### Primary Model: BERT
-
-- **Model**: BERT (Bidirectional Encoder Representations from Transformers)
-- **Variant**: bert-base-uncased
-- **Fine-tuned**: Yes, on enterprise email dataset
-- **Performance**: High accuracy in email classification tasks
-- **Advantages**: 
-  - Understands context bidirectionally
-  - Pre-trained on large corpus
-  - Excellent for text classification
-
-### Alternative Models
-
 The project includes implementations of various classification algorithms for comparison:
 
-1. **Support Vector Machine (SVM)**
-   - Linear and RBF kernels
-   - Good for high-dimensional text data
-
-2. **Random Forest Classifier**
-   - Ensemble learning method
-   - Robust to overfitting
-
-3. **Naive Bayes**
+1. **Naive Bayes**
    - Fast training and prediction
    - Works well with text data
 
-4. **Logistic Regression**
+2. **Logistic Regression**
    - Baseline model
    - Interpretable results
 
-5. **Neural Networks**
+3. **Neural Networks**
    - Deep learning approaches
    - Custom architectures
 
@@ -274,12 +252,9 @@ The project includes implementations of various classification algorithms for co
 | Model | Accuracy | F1-Score | Training Time | Inference Speed |
 |-------|----------|----------|---------------|-----------------|
 | BERT | ~92-95% | ~0.93 | Slow | Moderate |
-| SVM | ~85-88% | ~0.86 | Fast | Fast |
-| Random Forest | ~83-86% | ~0.84 | Moderate | Fast |
 | Naive Bayes | ~78-82% | ~0.80 | Very Fast | Very Fast |
 | Logistic Regression | ~80-84% | ~0.82 | Fast | Very Fast |
 
-*Note: Actual performance may vary based on dataset and hyperparameters*
 
 ## 📊 Dataset
 
@@ -290,7 +265,7 @@ The project uses email datasets with the following characteristics:
 - **Source**: Enterprise email communications
 - **Size**: Multiple categories with balanced/imbalanced distributions
 - **Format**: CSV files with email text and labels
-- **Categories**: Various business email types (e.g., Support, Sales, HR, Technical, etc.)
+- **Categories**: Various business email types (e.g., Support, Request, Incident, Technical, etc.)
 
 ### Data Structure
 
@@ -318,12 +293,9 @@ Columns:
 4. **Final Dataset**: Ready for training in `Cleaned Dataset/`
 
 ### Data Statistics
-
-- **Total Emails**: [To be specified based on actual dataset]
 - **Training Set**: 80%
-- **Validation Set**: 10%
-- **Test Set**: 10%
-- **Number of Classes**: [To be specified]
+- **Test Set**: 20%
+- **Number of Classes**: 4
 
 ## 📖 Documentation
 
@@ -331,50 +303,9 @@ Columns:
 
 1. **Project Description.pdf**: Comprehensive project overview, objectives, and methodology
 2. **Agile Documentation**: Sprint planning, user stories, and project management artifacts
-3. **Code Comments**: Inline documentation in all Python scripts
-4. **Model Documentation**: Configuration files in model directories
+3. **Defect Report**: Inline documentation in all Python scripts
+4. **Testing Report**: Configuration files in model directories
 
-### Agile Development
-
-This project follows Agile methodology with:
-- Sprint-based development cycles
-- User story driven features
-- Continuous integration and testing
-- Regular stakeholder feedback
-
-## 📈 Results
-
-### Model Performance
-
-The BERT-based classifier achieves:
-- **Overall Accuracy**: 92-95%
-- **Precision**: 0.91-0.94
-- **Recall**: 0.90-0.93
-- **F1-Score**: 0.92-0.94
-
-### Confusion Matrix
-
-```
-                Predicted
-               Class A  Class B  Class C
-Actual Class A    250      15       5
-       Class B     10     230       8
-       Class C      3       7     240
-```
-
-### Performance by Category
-
-Different email categories show varying classification accuracy:
-- Technical Support: 94%
-- Sales Inquiries: 92%
-- HR Related: 91%
-- General: 89%
-
-### Urgency Detection Accuracy
-
-- High Urgency: 88%
-- Medium Urgency: 85%
-- Low Urgency: 90%
 
 ## 🤝 Contributing
 
@@ -439,13 +370,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 - **scikit-learn**: For machine learning utilities and algorithms
 - **PyTorch**: For deep learning framework
 - **NLTK**: For natural language processing tools
-- **Open Source Community**: For various libraries and tools used in this project
 
-### Research Papers & Resources
-
-- [BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding](https://arxiv.org/abs/1810.04805)
-- [Attention Is All You Need](https://arxiv.org/abs/1706.03762)
-- Various email classification research papers
 
 ## 📞 Contact & Support
 
@@ -468,30 +393,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 - ✅ Urgency detection module
 - ✅ Model evaluation framework
 
-### In Progress
-- 🔄 Web interface for real-time classification
-- 🔄 API endpoint development
-- 🔄 Model optimization for faster inference
-
-### Future Enhancements
-- ⏭️ Multi-language support
-- ⏭️ Email thread analysis
-- ⏭️ Sentiment analysis integration
-- ⏭️ Auto-response suggestions
-- ⏭️ Integration with email clients (Gmail, Outlook)
-- ⏭️ Real-time streaming classification
-- ⏭️ Advanced visualization dashboard
-- ⏭️ Transfer learning for domain-specific emails
-- ⏭️ Continuous learning from user feedback
-
-## 📊 Project Statistics
-
-- **Language**: Python 100%
-- **Lines of Code**: ~5000+
-- **Models Trained**: 5+
-- **Accuracy**: Up to 95%
-- **Contributors**: Open for contributions
-- **License**: MIT
 
 ## 🎯 Use Cases
 
@@ -513,13 +414,5 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 - **Data-Driven Insights**: Analyze email patterns and trends
 
 ---
-
-## ⭐ Star This Repository
-
-If you find this project useful, please consider giving it a star! It helps others discover the project and motivates further development.
-
----
-
-**Built with ❤️ for Enterprise Email Management**
 
 *Last Updated: January 2026*
