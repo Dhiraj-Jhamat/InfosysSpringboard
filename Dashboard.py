@@ -11,15 +11,15 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 # ============================================================================
 
 # Classification Models
-NAIVE_BAYES_MODEL_PATH = r"Classification Models\naive_bayes_model.pkl"
-LOGISTIC_REGRESSION_MODEL_PATH = r"Classification Models\logisticmodel.pkl"
-BERT_MODEL_PATH = r"final_bert_model\model.safetensors"  # Directory containing BERT model files
+NAIVE_BAYES_MODEL_PATH = "Classification Models/naive_bayes_model.pkl"
+LOGISTIC_REGRESSION_MODEL_PATH = r"Classification Models/logisticmodel.pkl"
+BERT_MODEL_PATH = r"final_bert_model"  # Directory containing BERT model files
 
 # Vectorizer for Naive Bayes and Logistic Regression (if using TF-IDF/CountVectorizer)
-VECTORIZER_PATH = r"Classification Models\tfidf_vectorizer.pkl"
+VECTORIZER_PATH = r"Classification Models/tfidf_vectorizer.pkl"
 
 # Rule-based Urgency Detection Model
-URGENCY_MODEL_PATH = r"Urgency Detection\urgency_pipeline.pkl"
+URGENCY_MODEL_PATH = r"Urgency Detection/urgency_pipeline.pkl"
 
 # ============================================================================
 # LOAD MODELS
