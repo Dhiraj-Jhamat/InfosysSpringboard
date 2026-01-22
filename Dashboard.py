@@ -4,6 +4,11 @@ import torch
 from transformers import BertTokenizer, BertForSequenceClassification
 import re
 from sklearn.feature_extraction.text import TfidfVectorizer
+import os
+import json
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 
 
 # ============================================================================
@@ -11,15 +16,33 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 # ============================================================================
 
 # Classification Models
-NAIVE_BAYES_MODEL_PATH = "Classification Models/naive_bayes_model.pkl"
-LOGISTIC_REGRESSION_MODEL_PATH = r"Classification Models/logisticmodel.pkl"
-BERT_MODEL_PATH = r"final_bert_model"  # Directory containing BERT model files
+# ====================================================================
+# PATH CONFIG (CROSS-PLATFORM SAFE)
+# ====================================================================
 
-# Vectorizer for Naive Bayes and Logistic Regression (if using TF-IDF/CountVectorizer)
-VECTORIZER_PATH = r"Classification Models/tfidf_vectorizer.pkl"
+NAIVE_BAYES_MODEL_PATH = os.path.join(
+    BASE_DIR, "Classification Models", "naive_bayes_model.pkl"
+)
 
-# Rule-based Urgency Detection Model
-URGENCY_MODEL_PATH = r"Urgency Detection/urgency_pipeline.pkl"
+LOGISTIC_REGRESSION_MODEL_PATH = os.path.join(
+    BASE_DIR, "Classification Models", "logisticmodel.pkl"
+)
+
+VECTORIZER_PATH = os.path.join(
+    BASE_DIR, "Classification Models", "tfidf_vectorizer.pkl"
+)
+
+URGENCY_MODEL_PATH = os.path.join(
+    BASE_DIR, "Urgency Detection", "urgency_pipeline.pkl"
+)
+
+# BERT must point to DIRECTORY, not file
+BERT_MODEL_PATH = os.path.join(
+    BASE_DIR, "final_bert_model"
+)
+LABEL_MAP_PATH = os.path.join(BASE_DIR, "final_bert_model", "label_map.json")
+
+
 
 # ============================================================================
 # LOAD MODELS
@@ -47,13 +70,18 @@ def load_models():
         st.warning(f"Failed to load Logistic Regression model: {e}")
     
     try:
-        # Load BERT Model
         models['bert_tokenizer'] = BertTokenizer.from_pretrained(BERT_MODEL_PATH)
         models['bert_model'] = BertForSequenceClassification.from_pretrained(BERT_MODEL_PATH)
         models['bert_model'].eval()
+
+        # Load label map
+        with open(LABEL_MAP_PATH, "r") as f:
+            models['label_map'] = json.load(f)
+
     except Exception as e:
         models['bert_tokenizer'] = None
         models['bert_model'] = None
+        models['label_map'] = None
         st.warning(f"Failed to load BERT model: {e}")
     
     try:
@@ -107,12 +135,14 @@ def predict_logistic_regression(text, models):
         return f"Error: {e}", 0
 
 def predict_bert(text, models):
-    """Predict using BERT model"""
-    if models['bert_model'] is None or models['bert_tokenizer'] is None:
+    if (
+        models['bert_model'] is None
+        or models['bert_tokenizer'] is None
+        or models.get('label_map') is None
+    ):
         return "Model not loaded"
-    
+
     try:
-        # Tokenize input
         inputs = models['bert_tokenizer'](
             text,
             padding=True,
@@ -120,18 +150,23 @@ def predict_bert(text, models):
             max_length=512,
             return_tensors="pt"
         )
-        
-        # Make prediction
+
         with torch.no_grad():
             outputs = models['bert_model'](**inputs)
             logits = outputs.logits
             probabilities = torch.nn.functional.softmax(logits, dim=-1)
-            prediction = torch.argmax(probabilities, dim=-1).item()
-            confidence = probabilities[0][prediction].item() * 100
-        
-        return prediction, confidence
+
+            class_id = torch.argmax(probabilities, dim=-1).item()
+            confidence = probabilities[0][class_id].item() * 100
+
+        # Convert ID → Label
+        label = models['label_map'].get(str(class_id), str(class_id))
+
+        return label, confidence
+
     except Exception as e:
         return f"Error: {e}", 0
+
 
 def predict_urgency(text, models):
     """Predict urgency using rule-based model"""
