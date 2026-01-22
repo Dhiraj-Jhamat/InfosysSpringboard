@@ -2,4 +2,4 @@
 *.safetensors
 *.bin
 *.pt
-final_bert_model/
+*.model
