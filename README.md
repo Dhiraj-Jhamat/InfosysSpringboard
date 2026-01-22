@@ -4,6 +4,8 @@
 [![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](https://www.python.org/downloads/)
 
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/1ef8b33c-b959-419a-82bb-7cfe209d3007" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/ab9a0432-a7a2-4e2a-bc2b-ebe5b2cc1a2c" />
+
 
 
 An intelligent email classification system designed for enterprise environments that leverages machine learning and natural language processing to automatically categorize, prioritize, and detect urgency in email communications.
